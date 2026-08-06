@@ -1,23 +1,28 @@
-package com.example.lingoup
+package com.example.lingoup.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.lingoup.ui.screens.ResponseScreen
 
 class ResponseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      setContent {
+        val resumo = intent.getStringExtra("resumo") ?: ""
+        enableEdgeToEdge()
+
+        setContent {
           MaterialTheme {
               Surface(
                   modifier = Modifier.fillMaxSize(),
                   color = MaterialTheme.colorScheme.background
               ) {
-                  ResponseScreen()
+                  ResponseScreen(resumo = resumo)
               }
           }
 

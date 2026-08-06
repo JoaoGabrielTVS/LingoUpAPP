@@ -1,5 +1,6 @@
-package com.example.lingoup
+package com.example.lingoup.ui.screens
 
+import android.content.Intent
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
@@ -9,18 +10,32 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.lingoup.R
+import com.example.lingoup.ui.activities.AnalizysActivity
+import com.example.lingoup.ui.activities.ReadActivity
+import com.example.lingoup.viewmodel.ReadViewModel
+import com.example.lingoup.viewmodel.ResponseViewModel
 
 @Composable
-fun ResponseScreen() {
-    val q1 = "questao 1"
-    val q2 = "questao 2"
-    val q3 = "questao 3"
-    val q4 = "questao 4"
-    val q5 = "questao 5"
+fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
+    LaunchedEffect(Unit) {
+        viewModel.iniciarComResumo(resumo)
+    }
+        
+    val context = LocalContext.current
+
+    val q1 = viewModel.pergunta1
+    val q2 = viewModel.pergunta2
+    val q3 = viewModel.pergunta3
+    val q4 = viewModel.pergunta4
+    val q5 = viewModel.pergunta5
 
     val scrollState = rememberScrollState()
+
 
     // 1. Variável que guarda o texto digitado
     var textInputq1 by remember { mutableStateOf("") }
@@ -33,7 +48,7 @@ fun ResponseScreen() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(vertical = 32.dp),
+            .padding(horizontal = 23.dp, vertical = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ){
@@ -60,21 +75,7 @@ fun ResponseScreen() {
             modifier = Modifier.weight(1f)
         )
 
-        Button(
-            onClick = {
-                //error
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.Blue)
-            )
-        ) {
-            Text(
-                text = "Entrar",
-                color = Color.White
-            )
 
-            // Apenas para teste: mostra o que está sendo digitado abaixo
-        }
     }
         Spacer(modifier = Modifier.height(20.dp))
         Text(q2)
@@ -98,21 +99,7 @@ fun ResponseScreen() {
                 modifier = Modifier.weight(1f)
             )
 
-            Button(
-                onClick = {
-                    //error
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.Blue)
-                )
-            ) {
-                Text(
-                    text = "Entrar",
-                    color = Color.White
-                )
 
-                // Apenas para teste: mostra o que está sendo digitado abaixo
-            }
         }
         Spacer(modifier = Modifier.height(20.dp))
         Text(q3)
@@ -136,21 +123,7 @@ fun ResponseScreen() {
                 modifier = Modifier.weight(1f)
             )
 
-            Button(
-                onClick = {
-                    //error
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.Blue)
-                )
-            ) {
-                Text(
-                    text = "Entrar",
-                    color = Color.White
-                )
 
-                // Apenas para teste: mostra o que está sendo digitado abaixo
-            }
         }
         Spacer(modifier = Modifier.height(20.dp))
         Text(q4)
@@ -175,21 +148,7 @@ fun ResponseScreen() {
                 modifier = Modifier.weight(1f)
             )
 
-            Button(
-                onClick = {
-                    //error
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.Blue)
-                )
-            ) {
-                Text(
-                    text = "Entrar",
-                    color = Color.White
-                )
 
-                // Apenas para teste: mostra o que está sendo digitado abaixo
-            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -215,21 +174,29 @@ fun ResponseScreen() {
                 modifier = Modifier.weight(1f)
             )
 
-            Button(
-                onClick = {
-                    //error
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.Blue)
-                )
-            ) {
-                Text(
-                    text = "Entrar",
-                    color = Color.White
-                )
 
-                // Apenas para teste: mostra o que está sendo digitado abaixo
-            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = {
+                val intent = Intent(context, AnalizysActivity::class.java)
+                intent.putExtra("resumo", resumo)
+                intent.putExtra("perguntas", "questao1: $q1/ questao2:$q2/ questao3:$q3/ questao4:$q4/ questao5:$q5")
+                intent.putExtra("resposta","respostaquestao1: $textInputq1/ respostaquestao2:$textInputq2/ respostaquestao3:$textInputq3/ respostaquestao4:$textInputq4/ respostaquestao5:$textInputq5")
+                context.startActivity(intent)
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.Blue)
+            )
+
+        ) {
+            Text(
+                text = "Entrar",
+                color = Color.White
+            )
+
+            // Apenas para teste: mostra o que está sendo digitado abaixo
         }
 
 

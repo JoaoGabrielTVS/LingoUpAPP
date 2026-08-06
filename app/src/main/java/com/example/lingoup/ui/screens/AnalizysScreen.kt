@@ -1,5 +1,5 @@
-package com.example.lingoup
-import androidx.compose.foundation.background
+package com.example.lingoup.ui.screens
+import android.content.Intent
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
@@ -9,40 +9,35 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.lingoup.R
+import com.example.lingoup.ui.activities.AnalizysActivity
+import com.example.lingoup.ui.activities.IntroductionActivity
+import com.example.lingoup.viewmodel.AnalizysViewModel
 
 @Composable
-fun ReadScreen(){
-    var texto  = "A amizade consegue ser tão complexa.\n" +
-            "Deixa uns desanimados, outros bem felizes.\n" +
-            "É a alimentação dos fracos\n" +
-            "É o reino dos fortes.\n" +
-            "\n" +
-            "Faz-nos cometer erros\n" +
-            "Os fracos deixam se ir abaixo\n" +
-            "Os fortes erguem sempre a cabeça\n" +
-            "Os assim assumem-nos.\n" +
-            "\n" +
-            "Sem pensar conquistamos\n" +
-            "o mundo geral\n" +
-            "e construímos o nosso pequeno lugar,\n" +
-            "deixando brilhar cada estrelinha.\n" +
-            "\n" +
-            "Estrelinhas.\n" +
-            "Doces, sensíveis, frias, ternurentas.\n" +
-            "Mas sempre presentes em qualquer parte.\n" +
-            "Os donos da amizade."
+fun AnalizysScreen(resumo:String, questoes:String, respostas:String , viewModel: AnalizysViewModel = viewModel()) {
+
+   LaunchedEffect(Unit) {
+        viewModel.iniciarComAnalise(resumo, questoes, respostas)
+   }
+
+    var texto = viewModel.analise
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
+
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(vertical = 32.dp),
+            .padding(horizontal = 23.dp, vertical = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ){
+    ) {
 
 
         Text(texto)
@@ -50,17 +45,19 @@ fun ReadScreen(){
         Spacer(modifier = Modifier.height(30.dp))
         Button(
             onClick = {
-                //error
+                val intent = Intent(context, IntroductionActivity::class.java)
+                context.startActivity(intent)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = colorResource(id = R.color.Blue)
             )
         ) {
+            Text(
+                text = "Entrar",
+                color = Color.White
+            )
 
-            Text("Avançar")
 
         }
-
-
     }
 }

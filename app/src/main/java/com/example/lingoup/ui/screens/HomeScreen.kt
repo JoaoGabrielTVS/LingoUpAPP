@@ -1,4 +1,4 @@
-package com.example.lingoup
+package com.example.lingoup.ui.screens
 
 import android.content.Intent
 import androidx.compose.foundation.Image
@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -24,6 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingoup.R
+import com.example.lingoup.ui.activities.AnalizysActivity
+import com.example.lingoup.ui.activities.IntroductionActivity
 
 @Composable
 fun HomeScreen() {
@@ -40,7 +45,9 @@ fun HomeScreen() {
            contentScale = ContentScale.FillBounds // faz a imagem preencher toda a tela
        )
        Column(
-           modifier = Modifier.fillMaxSize(),
+           modifier = Modifier
+               .fillMaxSize(),
+
            horizontalAlignment = Alignment.CenterHorizontally,
            verticalArrangement = Arrangement.Center
        ){
@@ -63,7 +70,7 @@ fun HomeScreen() {
 
          Button(
            onClick = {
-               val intent = Intent(context, ReadActivity::class.java)
+               val intent = Intent(context, IntroductionActivity::class.java)
                context.startActivity(intent)
            },
            colors = ButtonDefaults.buttonColors(
