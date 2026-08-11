@@ -1,5 +1,6 @@
 package com.example.lingoup.ui.screens
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
@@ -8,8 +9,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lingoup.R
@@ -25,39 +28,46 @@ fun ReadScreen(
 ){
     val context = LocalContext.current
     val scrollState = rememberScrollState()
-LaunchedEffect(
-    Unit
-) { viewModel.carregarNoticia()}
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(horizontal = 23.dp, vertical = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ){
+    LaunchedEffect(Unit) { 
+        viewModel.carregarNoticia()
+    }
+    
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.background_screens),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 23.dp, vertical = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ){
+            Text(text = viewModel.noticiaTexto)
 
+            Spacer(modifier = Modifier.height(30.dp))
+            Button(
+                onClick = {
+                    val intent = Intent(context, ResponseActivity::class.java)
+                    intent.putExtra("resumo", viewModel.noticiaTexto)
 
-        Text(text = viewModel.noticiaTexto)
+                    context.startActivity(intent)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id = R.color.Blue)
+                )
 
-        Spacer(modifier = Modifier.height(30.dp))
-        Button(
-            onClick = {
-                val intent = Intent(context, ResponseActivity::class.java)
-                intent.putExtra("resumo", viewModel.noticiaTexto)
-
-                context.startActivity(intent)
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.Blue)
-            )
-
-        ) {
-
-            Text("Avançar")
-
+            ) {
+                Text("Avançar")
+            }
         }
-
-
+        
+        if (viewModel.isLoading) {
+            LoadingScreen()
+        }
     }
 }

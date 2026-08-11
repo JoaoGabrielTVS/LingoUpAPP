@@ -42,7 +42,7 @@ fun HomeScreen() {
            painter = painterResource(id = R.drawable.background_white_initialscreen),
            contentDescription = null,
            modifier = Modifier.fillMaxSize(),
-           contentScale = ContentScale.FillBounds // faz a imagem preencher toda a tela
+           contentScale = ContentScale.FillBounds
        )
        Column(
            modifier = Modifier
@@ -60,7 +60,7 @@ fun HomeScreen() {
            Spacer(modifier = Modifier.height(20.dp))
 
            Text(
-               text = stringResource(R.string.app_name),
+               text = "LingoNews",
                fontSize = 30.sp,
                fontWeight = FontWeight.Bold,
                color = colorResource(R.color.Blue)

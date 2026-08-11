@@ -1,5 +1,6 @@
 package com.example.lingoup.ui.screens
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
@@ -7,8 +8,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.lingoup.R
 import com.example.lingoup.ui.activities.ReadActivity
@@ -16,7 +19,12 @@ import com.example.lingoup.ui.activities.ReadActivity
 @Composable
 fun IntroductionScreen() {
     val context = LocalContext.current
-
+    Image(
+        painter = painterResource(id = R.drawable.background_screens),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()

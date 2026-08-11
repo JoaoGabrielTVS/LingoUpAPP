@@ -13,16 +13,20 @@ import kotlinx.coroutines.launch
 class AnalizysViewModel: ViewModel(){
     private val apiservice = RetrofitClient.apiService
 
-    var analise by mutableStateOf("Carregando")
+    var analise by mutableStateOf("")
     private set
-
+    var isLoading by  mutableStateOf(true)
+    private set
     fun iniciarComAnalise(resumo:String ,  questoes:String , respostas:String){
         viewModelScope.launch{
+            isLoading = true
             try{
                 val analises = apiservice.obterAvaliacao(AvaliacaoRequest(resumo, questoes,respostas))
                 analise = analises.avaliacao
             }catch(e: Exception){
 
+            }finally{
+                isLoading = false
             }
         }
 

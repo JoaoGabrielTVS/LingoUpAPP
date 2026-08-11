@@ -10,19 +10,22 @@ import kotlinx.coroutines.launch
 class ReadViewModel : ViewModel() {
     private val apiService = RetrofitClient.apiService
 
-    // Estado que a tela vai observar.
-    // Começa com "Carregando..." e muda quando a API responde.
-    var noticiaTexto by mutableStateOf("Carregando...")
+
+    var noticiaTexto by mutableStateOf("")
         private set
+    var isLoading by mutableStateOf(true)
 
     fun carregarNoticia() {
         viewModelScope.launch {
+            isLoading = true
             try {
                 val noticia = apiService.obterNoticia()
                 val resposta = apiService.obterResumo(ResumoRequest(noticia.texto))
                 noticiaTexto = resposta.resumo
             } catch (e: Exception) {
                 noticiaTexto = "Erro ao carregar: ${e.message}"
+            }finally{
+                isLoading = false
             }
         }
     }

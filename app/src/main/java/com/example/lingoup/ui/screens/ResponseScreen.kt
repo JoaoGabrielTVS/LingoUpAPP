@@ -1,6 +1,7 @@
 package com.example.lingoup.ui.screens
-
+import  androidx.compose.foundation.Image
 import android.content.Intent
+import android.media.Image
 import androidx.compose.runtime.*
 import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -19,7 +21,7 @@ import com.example.lingoup.ui.activities.AnalizysActivity
 import com.example.lingoup.ui.activities.ReadActivity
 import com.example.lingoup.viewmodel.ReadViewModel
 import com.example.lingoup.viewmodel.ResponseViewModel
-
+import androidx.compose.ui.res.painterResource
 @Composable
 fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
     LaunchedEffect(Unit) {
@@ -37,97 +39,31 @@ fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
     val scrollState = rememberScrollState()
 
 
-    // 1. Variável que guarda o texto digitado
     var textInputq1 by remember { mutableStateOf("") }
     var textInputq2 by remember { mutableStateOf("") }
     var textInputq3 by remember { mutableStateOf("") }
     var textInputq4 by remember { mutableStateOf("") }
     var textInputq5 by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(horizontal = 23.dp, vertical = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ){
-        Text(q1)
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        // 2. O campo de digitação contornado
-        OutlinedTextField(
-            value = textInputq1, // Mostra o valor da variável
-            onValueChange = { novoTexto ->
-                textInputq1 = novoTexto // Atualiza a variável quando o usuário digita
-            },
-            label = { Text("Digite seu nome") }, // Texto que fica em cima/dentro
-            placeholder = { Text("Ex: João Silva") }, // Dica que some ao digitar
-            modifier = Modifier.weight(1f)
+    
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.background_screens)
+            ,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
         )
-
-
-    }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(q2)
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            // 2. O campo de digitação contornado
-            OutlinedTextField(
-                value = textInputq2, // Mostra o valor da variável
-                onValueChange = { novoTexto ->
-                    textInputq2 = novoTexto // Atualiza a variável quando o usuário digita
-                },
-                label = { Text("Digite seu nome") }, // Texto que fica em cima/dentro
-                placeholder = { Text("Ex: João Silva") }, // Dica que some ao digitar
-                modifier = Modifier.weight(1f)
-            )
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 23.dp, vertical = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ){
+            Text(q1)
 
-
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(q3)
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            // 2. O campo de digitação contornado
-            OutlinedTextField(
-                value = textInputq3, // Mostra o valor da variável
-                onValueChange = { novoTexto ->
-                    textInputq3 = novoTexto // Atualiza a variável quando o usuário digita
-                },
-                label = { Text("Digite seu nome") }, // Texto que fica em cima/dentro
-                placeholder = { Text("Ex: João Silva") }, // Dica que some ao digitar
-                modifier = Modifier.weight(1f)
-            )
-
-
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(q4)
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
 
         Row(
@@ -137,70 +73,143 @@ fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // 2. O campo de digitação contornado
             OutlinedTextField(
-                value = textInputq4, // Mostra o valor da variável
+                value = textInputq1,
                 onValueChange = { novoTexto ->
-                    textInputq4 = novoTexto // Atualiza a variável quando o usuário digita
+                    textInputq1 = novoTexto
                 },
-                label = { Text("Digite seu nome") }, // Texto que fica em cima/dentro
-                placeholder = { Text("Ex: João Silva") }, // Dica que some ao digitar
+                label = { Text("Digite sua respostas") },
                 modifier = Modifier.weight(1f)
             )
 
 
         }
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(q2)
 
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(q5)
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+                OutlinedTextField(
+                    value = textInputq2,
+                    onValueChange = { novoTexto ->
+                        textInputq2 = novoTexto
+                    },
+                    label = { Text("Digite Sua Resposta") },
+                    modifier = Modifier.weight(1f)
+                )
 
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            // 2. O campo de digitação contornado
-            OutlinedTextField(
-                value = textInputq5, // Mostra o valor da variável
-                onValueChange = { novoTexto ->
-                    textInputq5 = novoTexto // Atualiza a variável quando o usuário digita
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(q3)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = textInputq3,
+                    onValueChange = { novoTexto ->
+                        textInputq3 = novoTexto
+                    },
+                    label = { Text("Digite Sua Resposta") },
+                    modifier = Modifier.weight(1f)
+                )
+
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(q4)
+            Spacer(modifier = Modifier.height(20.dp))
+
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = textInputq4,
+                    onValueChange = { novoTexto ->
+                        textInputq4 = novoTexto
+                    },
+                    label = { Text("Digite Sua Resposta") },
+                    modifier = Modifier.weight(1f)
+                )
+
+
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(q5)
+            Spacer(modifier = Modifier.height(20.dp))
+
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = textInputq5,
+                    onValueChange = { novoTexto ->
+                        textInputq5 = novoTexto
+                    },
+                    label = { Text("Digite Sua Resposta") },
+                    modifier = Modifier.weight(1f)
+                )
+
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = {
+                    val intent = Intent(context, AnalizysActivity::class.java)
+                    intent.putExtra("resumo", resumo)
+                    intent.putExtra("perguntas", "questao1: $q1/ questao2:$q2/ questao3:$q3/ questao4:$q4/ questao5:$q5")
+                    intent.putExtra("resposta","respostaquestao1: $textInputq1/ respostaquestao2:$textInputq2/ respostaquestao3:$textInputq3/ respostaquestao4:$textInputq4/ respostaquestao5:$textInputq5")
+                    context.startActivity(intent)
                 },
-                label = { Text("Digite seu nome") }, // Texto que fica em cima/dentro
-                placeholder = { Text("Ex: João Silva") }, // Dica que some ao digitar
-                modifier = Modifier.weight(1f)
-            )
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id = R.color.Blue)
+                )
 
+            ) {
+                Text(
+                    text = "Entrar",
+                    color = Color.White
+                )
 
+            }
+
+            Box(
+                modifier = Modifier
+                .width(200.dp)
+                .height(100.dp)
+
+            ){
+
+            }
         }
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Button(
-            onClick = {
-                val intent = Intent(context, AnalizysActivity::class.java)
-                intent.putExtra("resumo", resumo)
-                intent.putExtra("perguntas", "questao1: $q1/ questao2:$q2/ questao3:$q3/ questao4:$q4/ questao5:$q5")
-                intent.putExtra("resposta","respostaquestao1: $textInputq1/ respostaquestao2:$textInputq2/ respostaquestao3:$textInputq3/ respostaquestao4:$textInputq4/ respostaquestao5:$textInputq5")
-                context.startActivity(intent)
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(id = R.color.Blue)
-            )
-
-        ) {
-            Text(
-                text = "Entrar",
-                color = Color.White
-            )
-
-            // Apenas para teste: mostra o que está sendo digitado abaixo
+        
+        if (viewModel.isLoading) {
+            LoadingScreen()
         }
-
-
-
-
     }
 }

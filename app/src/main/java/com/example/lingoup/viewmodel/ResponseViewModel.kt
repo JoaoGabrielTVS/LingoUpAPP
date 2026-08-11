@@ -13,9 +13,8 @@ import com.example.lingoup.viewmodel.varrer
 
 class ResponseViewModel: ViewModel() {
     private val apiService = RetrofitClient.apiService
-    // Estado que a tela vai observar.
-    // Começa com "Carregando..." e muda quando a API responde.
-   var perguntasstate by mutableStateOf("Carregando...")
+    var isLoading by mutableStateOf(true)
+    var perguntasstate by mutableStateOf("")
     private set
     var pergunta1 by mutableStateOf("")
     var pergunta2 by mutableStateOf("")
@@ -27,6 +26,7 @@ class ResponseViewModel: ViewModel() {
     fun iniciarComResumo(resumo:String) {
         this.resumosalvo = resumo
         viewModelScope.launch {
+            isLoading = true
             try {
                 val perguntas  = apiService.obterPerguntas(PerguntasRequest(resumosalvo))
                 perguntasstate = perguntas.perguntas
@@ -39,6 +39,8 @@ class ResponseViewModel: ViewModel() {
 
             } catch (e: Exception) {
                 perguntasstate = "Erro ao carregar: ${e.message}"
+            }finally {
+                isLoading = false
             }
         }
     }

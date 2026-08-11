@@ -14,9 +14,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.AnalizysActivity
 import com.example.lingoup.ui.activities.IntroductionActivity
 import com.example.lingoup.viewmodel.AnalizysViewModel
+import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
 
 @Composable
 fun AnalizysScreen(resumo:String, questoes:String, respostas:String , viewModel: AnalizysViewModel = viewModel()) {
@@ -24,7 +26,13 @@ fun AnalizysScreen(resumo:String, questoes:String, respostas:String , viewModel:
    LaunchedEffect(Unit) {
         viewModel.iniciarComAnalise(resumo, questoes, respostas)
    }
-
+    Box(modifier = Modifier.fillMaxSize()){
+    Image(
+        painter = painterResource(id = R.drawable.background_screens),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
     var texto = viewModel.analise
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -59,5 +67,17 @@ fun AnalizysScreen(resumo:String, questoes:String, respostas:String , viewModel:
 
 
         }
+        Box(
+            modifier = Modifier
+                .width(200.dp)
+                .height(100.dp)
+
+        ){
+
+        }
+    }
+    if (viewModel.isLoading) {
+        LoadingScreen()
+    }
     }
 }

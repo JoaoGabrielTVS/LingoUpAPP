@@ -1,7 +1,7 @@
 package com.example.lingoup.data
 
 
-import com.example.lingoup.model.* // Importa os seus modelos que você acabou de criar
+import com.example.lingoup.model.*
 import retrofit2.http.*
 
 interface LingoUpApi {
