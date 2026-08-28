@@ -13,6 +13,8 @@ class ReadViewModel : ViewModel() {
 
     var noticiaTexto by mutableStateOf("")
         private set
+    var noticiaTitulo by mutableStateOf("")
+        private set
     var isLoading by mutableStateOf(true)
 
     fun carregarNoticia() {
@@ -20,6 +22,7 @@ class ReadViewModel : ViewModel() {
             isLoading = true
             try {
                 val noticia = apiService.obterNoticia()
+                noticiaTitulo = noticia.titulo
                 val resposta = apiService.obterResumo(ResumoRequest(noticia.texto))
                 noticiaTexto = resposta.resumo
             } catch (e: Exception) {

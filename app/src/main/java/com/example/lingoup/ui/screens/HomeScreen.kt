@@ -2,18 +2,8 @@ package com.example.lingoup.ui.screens
 
 import android.content.Intent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,13 +20,15 @@ import com.example.lingoup.R
 import com.example.lingoup.ui.activities.AnalizysActivity
 import com.example.lingoup.ui.activities.IntroductionActivity
 
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.text.style.TextAlign
+
 @Composable
 fun HomeScreen() {
    val context = LocalContext.current
 
    Box(
        modifier = Modifier.fillMaxSize()
-
    ){
        Image(
            painter = painterResource(id = R.drawable.background_white_initialscreen),
@@ -44,53 +36,76 @@ fun HomeScreen() {
            modifier = Modifier.fillMaxSize(),
            contentScale = ContentScale.FillBounds
        )
+       
        Column(
            modifier = Modifier
-               .fillMaxSize(),
-
+               .fillMaxSize()
+               .systemBarsPadding()
+               .padding(24.dp),
            horizontalAlignment = Alignment.CenterHorizontally,
-           verticalArrangement = Arrangement.Center
+           verticalArrangement = Arrangement.SpaceBetween
        ){
-           Image(
-               painter = painterResource(id = R.drawable.logo),
-               contentDescription = "LOgo Do LingoUp",
-               modifier = Modifier.size(188.dp, 163.dp)
-
-           )
-           Spacer(modifier = Modifier.height(20.dp))
-
-           Text(
-               text = "LingoNews",
-               fontSize = 30.sp,
-               fontWeight = FontWeight.Bold,
-               color = colorResource(R.color.Blue)
-
-           )
-           Spacer(modifier = Modifier.height(30.dp))
-
-         Button(
-           onClick = {
-               val intent = Intent(context, IntroductionActivity::class.java)
-               context.startActivity(intent)
-           },
-           colors = ButtonDefaults.buttonColors(
-               containerColor = colorResource(id = R.color.Blue)
-           )
+           Column(
+               horizontalAlignment = Alignment.CenterHorizontally,
+               modifier = Modifier.padding(top = 80.dp)
            ) {
-           Text(
-               text = "Entrar",
-               color = Color.White
-           )
+               Card(
+                   shape = RoundedCornerShape(32.dp),
+                   colors = CardDefaults.cardColors(containerColor = Color.White),
+                   elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+                   modifier = Modifier.size(200.dp)
+               ) {
+                   Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                       Image(
+                           painter = painterResource(id = R.drawable.logo),
+                           contentDescription = "Logo LingoUP",
+                           modifier = Modifier.size(150.dp)
+                       )
+                   }
+               }
+               
+               Spacer(modifier = Modifier.height(32.dp))
+
+               Text(
+                   text = "LingoNews",
+                   fontSize = 42.sp,
+                   fontWeight = FontWeight.Black,
+                   color = colorResource(id = R.color.Blue),
+                   textAlign = TextAlign.Center
+               )
+               
+               Text(
+                   text = "Aprenda inglês com as notícias do mundo",
+                   fontSize = 18.sp,
+                   fontWeight = FontWeight.Medium,
+                   color = Color.Gray,
+                   textAlign = TextAlign.Center,
+                   modifier = Modifier.padding(top = 8.dp)
+               )
+           }
+
+           Button(
+               onClick = {
+                   val intent = Intent(context, IntroductionActivity::class.java)
+                   context.startActivity(intent)
+               },
+               modifier = Modifier
+                   .fillMaxWidth()
+                   .height(64.dp)
+                   .padding(bottom = 8.dp),
+               shape = RoundedCornerShape(20.dp),
+               colors = ButtonDefaults.buttonColors(
+                   containerColor = colorResource(id = R.color.Blue)
+               ),
+               elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp)
+           ) {
+               Text(
+                   text = "Começar Agora",
+                   fontSize = 20.sp,
+                   fontWeight = FontWeight.Bold,
+                   color = Color.White
+               )
+           }
        }
-
-
-       }
-
-
-
-
-
-
-
    }
 }

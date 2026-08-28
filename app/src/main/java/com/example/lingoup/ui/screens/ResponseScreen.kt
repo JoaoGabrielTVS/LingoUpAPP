@@ -22,6 +22,11 @@ import com.example.lingoup.ui.activities.ReadActivity
 import com.example.lingoup.viewmodel.ReadViewModel
 import com.example.lingoup.viewmodel.ResponseViewModel
 import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
+
 @Composable
 fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
     LaunchedEffect(Unit) {
@@ -38,7 +43,6 @@ fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
 
     val scrollState = rememberScrollState()
 
-
     var textInputq1 by remember { mutableStateOf("") }
     var textInputq2 by remember { mutableStateOf("") }
     var textInputq3 by remember { mutableStateOf("") }
@@ -47,169 +51,118 @@ fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
     
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.background_screens)
-            ,
+            painter = painterResource(id = R.drawable.background_screens),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
+        
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .systemBarsPadding()
                 .verticalScroll(scrollState)
-                .padding(horizontal = 23.dp, vertical = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+                .padding(horizontal = 24.dp, vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Text(q1)
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            OutlinedTextField(
-                value = textInputq1,
-                onValueChange = { novoTexto ->
-                    textInputq1 = novoTexto
-                },
-                label = { Text("Digite sua respostas") },
-                modifier = Modifier.weight(1f)
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Text(
+                text = "Suas Perguntas",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = colorResource(id = R.color.Blue),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start
             )
+            
+            Spacer(modifier = Modifier.height(16.dp))
 
+            // Questão 1
+            QuestionCard(q1, textInputq1) { textInputq1 = it }
+            Spacer(modifier = Modifier.height(16.dp))
 
-        }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(q2)
+            // Questão 2
+            QuestionCard(q2, textInputq2) { textInputq2 = it }
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            // Questão 3
+            QuestionCard(q3, textInputq3) { textInputq3 = it }
+            Spacer(modifier = Modifier.height(16.dp))
 
-                OutlinedTextField(
-                    value = textInputq2,
-                    onValueChange = { novoTexto ->
-                        textInputq2 = novoTexto
-                    },
-                    label = { Text("Digite Sua Resposta") },
-                    modifier = Modifier.weight(1f)
-                )
+            // Questão 4
+            QuestionCard(q4, textInputq4) { textInputq4 = it }
+            Spacer(modifier = Modifier.height(16.dp))
 
-
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(q3)
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = textInputq3,
-                    onValueChange = { novoTexto ->
-                        textInputq3 = novoTexto
-                    },
-                    label = { Text("Digite Sua Resposta") },
-                    modifier = Modifier.weight(1f)
-                )
-
-
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(q4)
-            Spacer(modifier = Modifier.height(20.dp))
-
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = textInputq4,
-                    onValueChange = { novoTexto ->
-                        textInputq4 = novoTexto
-                    },
-                    label = { Text("Digite Sua Resposta") },
-                    modifier = Modifier.weight(1f)
-                )
-
-
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(q5)
-            Spacer(modifier = Modifier.height(20.dp))
-
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = textInputq5,
-                    onValueChange = { novoTexto ->
-                        textInputq5 = novoTexto
-                    },
-                    label = { Text("Digite Sua Resposta") },
-                    modifier = Modifier.weight(1f)
-                )
-
-
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+            // Questão 5
+            QuestionCard(q5, textInputq5) { textInputq5 = it }
+            
+            Spacer(modifier = Modifier.height(32.dp))
 
             Button(
                 onClick = {
                     val intent = Intent(context, AnalizysActivity::class.java)
                     intent.putExtra("resumo", resumo)
-                    intent.putExtra("perguntas", "questao1: $q1/ questao2:$q2/ questao3:$q3/ questao4:$q4/ questao5:$q5")
-                    intent.putExtra("resposta","respostaquestao1: $textInputq1/ respostaquestao2:$textInputq2/ respostaquestao3:$textInputq3/ respostaquestao4:$textInputq4/ respostaquestao5:$textInputq5")
+                    intent.putExtra("perguntas", "1: $q1/ 2:$q2/ 3:$q3/ 4:$q4/ 5:$q5")
+                    intent.putExtra("resposta","1: $textInputq1/ 2:$textInputq2/ 3:$textInputq3/ 4:$textInputq4/ 5:$textInputq5")
                     context.startActivity(intent)
                 },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = colorResource(id = R.color.Blue)
-                )
-
+                ),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
             ) {
                 Text(
-                    text = "Entrar",
+                    text = "Enviar Respostas",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
             }
 
-            Box(
-                modifier = Modifier
-                .width(200.dp)
-                .height(100.dp)
-
-            ){
-
-            }
+            Spacer(modifier = Modifier.height(40.dp))
         }
         
         if (viewModel.isLoading) {
             LoadingScreen()
+        }
+    }
+}
+
+@Composable
+fun QuestionCard(question: String, value: String, onValueChange: (String) -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White.copy(alpha = 0.9f)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = question,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Bold,
+                color = colorResource(id = R.color.Blue),
+                lineHeight = 22.sp
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = value,
+                onValueChange = onValueChange,
+                label = { Text("Sua resposta...") },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = colorResource(id = R.color.Blue),
+                    unfocusedBorderColor = Color.LightGray
+                )
+            )
         }
     }
 }

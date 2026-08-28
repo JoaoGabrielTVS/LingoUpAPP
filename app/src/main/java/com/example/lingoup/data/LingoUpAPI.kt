@@ -8,13 +8,13 @@ interface LingoUpApi {
         @GET("noticia")
         suspend fun obterNoticia(): NoticiaResponse
 
-        @POST("resumo") // Faltava isso
+        @POST("resumo")
         suspend fun obterResumo(@Body request: ResumoRequest): ResumoResponse
 
-        @POST("perguntas") // Faltava isso
+        @POST("perguntas")
         suspend fun obterPerguntas(@Body request: PerguntasRequest): PerguntasResponse
 
-        @POST("avaliar") // Faltava isso (de acordo com seu api.py)
+        @POST("avaliar")
         suspend fun obterAvaliacao(@Body request: AvaliacaoRequest): AvaliacaoResponse
 
 
