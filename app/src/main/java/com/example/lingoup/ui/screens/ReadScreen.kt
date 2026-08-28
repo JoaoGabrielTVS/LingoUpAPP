@@ -19,8 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.ReadActivity
-import com.example.lingoup.ui.activities.ResponseActivity
 import com.example.lingoup.viewmodel.ReadViewModel
 
 
@@ -32,9 +30,9 @@ import androidx.compose.ui.graphics.Brush
 
 @Composable
 fun ReadScreen(
+    onNavigateToResponse: (String) -> Unit,
     viewModel: ReadViewModel = viewModel()
 ){
-    val context = LocalContext.current
     val scrollState = rememberScrollState()
     LaunchedEffect(Unit) { 
         viewModel.carregarNoticia()
@@ -108,9 +106,7 @@ fun ReadScreen(
             
             Button(
                 onClick = {
-                    val intent = Intent(context, ResponseActivity::class.java)
-                    intent.putExtra("resumo", viewModel.noticiaTexto)
-                    context.startActivity(intent)
+                    onNavigateToResponse(viewModel.noticiaTexto)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

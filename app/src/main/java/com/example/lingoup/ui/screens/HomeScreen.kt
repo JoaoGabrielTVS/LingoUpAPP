@@ -17,16 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.AnalizysActivity
-import com.example.lingoup.ui.activities.IntroductionActivity
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun HomeScreen() {
-   val context = LocalContext.current
-
+fun HomeScreen(onNavigateToIntro: () -> Unit) {
    Box(
        modifier = Modifier.fillMaxSize()
    ){
@@ -85,10 +81,7 @@ fun HomeScreen() {
            }
 
            Button(
-               onClick = {
-                   val intent = Intent(context, IntroductionActivity::class.java)
-                   context.startActivity(intent)
-               },
+               onClick = onNavigateToIntro,
                modifier = Modifier
                    .fillMaxWidth()
                    .height(64.dp)

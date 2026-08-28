@@ -14,7 +14,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.ReadActivity
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.font.FontWeight
@@ -22,9 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun IntroductionScreen() {
-    val context = LocalContext.current
-
+fun IntroductionScreen(onNavigateToRead: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.background_screens),
@@ -74,10 +71,7 @@ fun IntroductionScreen() {
             }
 
             Button(
-                onClick = {
-                    val intent = Intent(context, ReadActivity::class.java)
-                    context.startActivity(intent)
-                },
+                onClick = onNavigateToRead,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp),

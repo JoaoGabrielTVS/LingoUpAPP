@@ -26,22 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.ResponseActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientation"
-            android:exported="false" />
-        <activity android:name=".ui.activities.IntroductionActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientation"
-            android:exported="false" />
-        <activity android:name=".ui.activities.ReadActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientation"
-            android:exported="false" />
-        <activity android:name=".ui.activities.AnalizysActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientation"
-            android:exported="false"/>
 
     </application>
 

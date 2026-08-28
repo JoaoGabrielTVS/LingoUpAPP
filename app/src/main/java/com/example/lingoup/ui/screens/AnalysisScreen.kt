@@ -25,7 +25,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.IntroductionActivity
 import com.example.lingoup.viewmodel.AnalizysViewModel
 
 @Composable
@@ -33,6 +32,7 @@ fun AnalizysScreen(
     resumo: String,
     questoes: String,
     respostas: String,
+    onBackToHome: () -> Unit,
     viewModel: AnalizysViewModel = viewModel()
 ) {
     LaunchedEffect(Unit) {
@@ -41,15 +41,13 @@ fun AnalizysScreen(
 
     val textoRaw = viewModel.analise
     val scrollState = rememberScrollState()
-    val context = LocalContext.current
 
-    // Divide o texto de forma precisa usando o token //final//
+    // Divide o texto da IA em blocos e garante que o 'Overall' seja sempre o último
     val blocos = remember(textoRaw) {
         val rawBlocos = textoRaw.split("//final//")
             .map { it.trim() }
             .filter { it.isNotBlank() && it.length > 5 }
         
-        // Separa o card de resultado final (Overall) para garantir que fique por último
         val overall = rawBlocos.filter { it.contains("Overall", ignoreCase = true) || it.contains("###") }
         val questoesList = rawBlocos.filter { !it.contains("Overall", ignoreCase = true) && !it.contains("###") }
         
@@ -112,13 +110,10 @@ fun AnalizysScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = {
-                    val intent = Intent(context, IntroductionActivity::class.java)
-                    context.startActivity(intent)
-                },
+                onClick = onBackToHome,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp),

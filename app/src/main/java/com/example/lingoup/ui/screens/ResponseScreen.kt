@@ -17,8 +17,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.lingoup.R
-import com.example.lingoup.ui.activities.AnalizysActivity
-import com.example.lingoup.ui.activities.ReadActivity
 import com.example.lingoup.viewmodel.ReadViewModel
 import com.example.lingoup.viewmodel.ResponseViewModel
 import androidx.compose.ui.res.painterResource
@@ -28,13 +26,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
-    LaunchedEffect(Unit) {
+fun ResponseScreen(
+    resumo: String,
+    onNavigateToAnalysis: (String, String, String) -> Unit,
+    viewModel: ResponseViewModel = viewModel()
+) {
+    LaunchedEffect(resumo) {
         viewModel.iniciarComResumo(resumo)
     }
         
-    val context = LocalContext.current
-
     val q1 = viewModel.pergunta1
     val q2 = viewModel.pergunta2
     val q3 = viewModel.pergunta3
@@ -78,34 +78,24 @@ fun ResponseScreen(resumo:String , viewModel: ResponseViewModel = viewModel()) {
             
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Questão 1
+            // Questões
             QuestionCard(q1, textInputq1) { textInputq1 = it }
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Questão 2
             QuestionCard(q2, textInputq2) { textInputq2 = it }
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Questão 3
             QuestionCard(q3, textInputq3) { textInputq3 = it }
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Questão 4
             QuestionCard(q4, textInputq4) { textInputq4 = it }
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Questão 5
             QuestionCard(q5, textInputq5) { textInputq5 = it }
             
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
                 onClick = {
-                    val intent = Intent(context, AnalizysActivity::class.java)
-                    intent.putExtra("resumo", resumo)
-                    intent.putExtra("perguntas", "1: $q1/ 2:$q2/ 3:$q3/ 4:$q4/ 5:$q5")
-                    intent.putExtra("resposta","1: $textInputq1/ 2:$textInputq2/ 3:$textInputq3/ 4:$textInputq4/ 5:$textInputq5")
-                    context.startActivity(intent)
+                    val perguntas = "1: $q1/ 2:$q2/ 3:$q3/ 4:$q4/ 5:$q5"
+                    val respostas = "1: $textInputq1/ 2:$textInputq2/ 3:$textInputq3/ 4:$textInputq4/ 5:$textInputq5"
+                    onNavigateToAnalysis(resumo, perguntas, respostas)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
